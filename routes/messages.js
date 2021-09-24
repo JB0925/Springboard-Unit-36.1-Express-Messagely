@@ -1,3 +1,13 @@
+const express = require("express");
+const router = new express.Router();
+const ExpressError = require("../expressError");
+const User = require("../models/user");
+const Message = require("../models/message");
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY, DB_URI } = require("../config");
+const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
+const db = require("../db");
+
 /** GET /:id - get detail of message.
  *
  * => {message: {id,
@@ -10,7 +20,19 @@
  * Make sure that the currently-logged-in users is either the to or from user.
  *
  **/
-
+router.get("/:id", ensureCorrectUser, async(req, res, next) => {
+    try {
+        const id = req.params.id;
+        const username = req.user;
+        const message = await Message.get(id);
+        if (message.from_user.username !== username || message.to_user.username !== username) {
+            throw new ExpressError("You are not the recipient nor the sender of this message", 400);
+        }
+        return res.json({ message });
+    } catch (error) {
+        return next(error);
+    };
+});
 
 /** POST / - post message.
  *
@@ -18,7 +40,20 @@
  *   {message: {id, from_username, to_username, body, sent_at}}
  *
  **/
+router.post("/", ensureLoggedIn, async(req, res, next) => {
+    try {
+        const { from_username, to_username, body } = req.body;
+        if (!from_username || !to_username || !body) {
+            throw new ExpressError("Must provide all data to create a message.", 400);
+        };
+        
+        const newMessage = await Message.create(from_username, to_username, body);
+        return res.json({ message: newMessage });
 
+    } catch (error) {
+        return next(error);
+    };
+});
 
 /** POST/:id/read - mark message as read:
  *
@@ -27,4 +62,24 @@
  * Make sure that the only the intended recipient can mark as read.
  *
  **/
+router.post("/:id", ensureLoggedIn, async(req, res, next) => {
+    try {
+        const id = req.params.id;
+        const username = req.user;
+        const query = await db.query(
+            `SELECT *
+             FROM messages
+             WHERE id = $1
+             AND to_username = $2`,
+             [id, username]
+        );
+        if (!query.rows.length) throw new ExpressError("Sorry, this message is not intended for you.", 400);
 
+        const markedAsRead = await Message.markRead(id);
+        return res.json({ message: markedAsRead })
+    } catch (error) {
+        return next(error);
+    };
+});
+
+module.exports = router;
