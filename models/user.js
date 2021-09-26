@@ -74,7 +74,8 @@ class User {
       const updatedUser = await db.query(
         `UPDATE users
          SET last_login_at = CURRENT_TIMESTAMP
-         WHERE username = $1`,
+         WHERE username = $1
+         RETURNING username`,
          [username]
       )
       if (!updatedUser.rows.length) throw new ExpressError("Username not found.", 400);

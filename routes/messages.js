@@ -4,6 +4,8 @@ const ExpressError = require("../expressError");
 const Message = require("../models/message");
 const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 const db = require("../db");
+const jwt = require("jsonwebtoken");
+const { SECRET_KEY } = require("../config");
 
 /** GET /:id - get detail of message.
  *
@@ -17,12 +19,14 @@ const db = require("../db");
  * Make sure that the currently-logged-in users is either the to or from user.
  *
  **/
-router.get("/:id", ensureCorrectUser, async(req, res, next) => {
+router.get("/:id", async(req, res, next) => {
     try {
         const id = req.params.id;
-        const username = req.user;
+        const token = jwt.verify(req.body._token, SECRET_KEY);
+        const username = token.username
         const message = await Message.get(id);
-        if (message.from_user.username !== username || message.to_user.username !== username) {
+
+        if (message.from_user.username !== username && message.to_user.username !== username) {
             throw new ExpressError("You are not the recipient nor the sender of this message", 400);
         }
         return res.json({ message });
@@ -39,12 +43,12 @@ router.get("/:id", ensureCorrectUser, async(req, res, next) => {
  **/
 router.post("/", ensureLoggedIn, async(req, res, next) => {
     try {
-        const { from_username, to_username, body } = req.body;
+        const { from_username, to_username, body } = req.body.message;
         if (!from_username || !to_username || !body) {
             throw new ExpressError("Must provide all data to create a message.", 400);
         };
         
-        const newMessage = await Message.create(from_username, to_username, body);
+        const newMessage = await Message.create({from_username, to_username, body});
         return res.json({ message: newMessage });
 
     } catch (error) {
@@ -62,7 +66,7 @@ router.post("/", ensureLoggedIn, async(req, res, next) => {
 router.post("/:id", ensureLoggedIn, async(req, res, next) => {
     try {
         const id = req.params.id;
-        const username = req.user;
+        const username = req.user.username;
         const query = await db.query(
             `SELECT *
              FROM messages
