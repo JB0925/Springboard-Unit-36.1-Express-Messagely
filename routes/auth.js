@@ -17,7 +17,7 @@ router.post("/login", async(req, res, next) => {
         }
         if (await User.authenticate(username, password)) {
             await User.updateLoginTimestamp(username);
-            let token = jwt.sign({ username }, SECRET_KEY);
+            let _token = jwt.sign({ username }, SECRET_KEY);
             return res.json({ _token })
         }
         throw new ExpressError("Invalid login credentials.", 400);
@@ -35,7 +35,8 @@ router.post("/login", async(req, res, next) => {
 router.post("/register", async(req, res, next) => {
     try {
         const { username, password, first_name, last_name, phone } = req.body;
-        const user = await User.register(username, password, first_name, last_name, phone);
+        const user = await User.register({username, password, first_name, last_name, phone});
+        console.log(user)
         let token = jwt.sign({ username }, SECRET_KEY);
         return res.json({ token });
     } catch (error) {
