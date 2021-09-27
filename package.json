@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^0.21.4",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",

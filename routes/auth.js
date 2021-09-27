@@ -7,7 +7,7 @@ const { SECRET_KEY } = require("../config");
 
 /** GET /login - renders the login page */
 router.get("/login", async(req, res, next) => {
-    return res.render("base.html");
+    return res.render("login.html");
 });
 
 

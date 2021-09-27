@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,22 +10,17 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
           crossorigin="anonymous"/>
     <link rel="stylesheet" href="/css/base.css">
-    <title>Messagely - Home</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Messagely - Login</title>
 {% endblock %}
-<body>
-    <nav>
-        <h1>Welcome to Messagely!</h1>
-        <ul>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Home</li>
-        </ul>
-        <i class="fas fa-bars"></i>
-    </nav>
-    {% block content %}
-    {% endblock %}
-    <footer>
-        <p>A Springboard student app, &copy; 2021.</p>
-    </footer>
-</body>
-</html>
+{% block content %}
+<div class="container">
+    <form action="/login" method="POST">
+        <label for="username">Enter Your Username</label>
+        <input type="text" name="username" id="username" placeholder="Ex: coolGuy123" required>
+        <label for="password">Enter Your Password</label>
+        <input type="password" name="password" id="password" placeholder="Ex: @seCretPAswRd8!" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
