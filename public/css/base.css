@@ -1,0 +1,44 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+img {
+    max-width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #0c162e;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+nav h1 {
+    color: white;
+    font-size: 2rem;
+    margin-left: 3%;
+}
+
+nav ul {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5%;
+}
+
+nav li {
+    color: white;
+    list-style: none;
+    padding-right: 35px;
+    font-size: 1.3rem;
+}

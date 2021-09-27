@@ -4,6 +4,13 @@ const ExpressError = require("../expressError");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const { SECRET_KEY } = require("../config");
+
+/** GET /login - renders the login page */
+router.get("/login", async(req, res, next) => {
+    return res.render("base.html");
+});
+
+
 /** POST /login - login: {username, password} => {token}
  *
  * Make sure to update their last-login!

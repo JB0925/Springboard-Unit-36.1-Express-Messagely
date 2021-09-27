@@ -7,6 +7,13 @@ const { authenticateJWT } = require("./middleware/auth");
 
 const ExpressError = require("./expressError")
 const app = express();
+const nunjucks = require("nunjucks");
+const bodyParser = require("body-parser");
+
+nunjucks.configure("templates", {
+  autoescape: true,
+  express: app
+});
 
 // allow both form-encoded and json body parsing
 app.use(express.json());
@@ -17,6 +24,10 @@ app.use(cors());
 
 // get auth token for all routes
 app.use(authenticateJWT);
+
+// use custom css files
+app.use(express.static(process.cwd() + '/public'));
+
 
 /** routes */
 
