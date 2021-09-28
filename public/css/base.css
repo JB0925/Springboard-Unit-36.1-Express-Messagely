@@ -22,6 +22,7 @@ nav {
     background-color: #0c162e;
     display: flex;
     justify-content: flex-start;
+    position: relative;
 }
 
 nav h1 {
@@ -63,6 +64,31 @@ footer p {
 
 nav i {
     color: white;
+    display: none;
     font-size: 2rem;
     margin-right: 3%;
+}
+
+.pulldown {
+    background-color: lightgray;
+    height: 0px;
+    left: 0;
+    position: absolute;
+    top: 90px;
+    transition: height 1s ease-in-out;
+    width: 100%;
+}
+
+.pulldown h1 {
+    color: #0c162e;
+    display: none;
+    font-size: 1.6rem;
+    margin-left: 3%;
+}
+
+@media screen and (max-width: 900px) {
+    
+    form {
+        min-width: 80%;
+    }
 }

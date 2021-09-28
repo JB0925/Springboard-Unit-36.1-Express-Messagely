@@ -33,6 +33,11 @@ router.post("/login", async(req, res, next) => {
     }
 })
 
+/** GET /register - renders the register template */
+router.get("/register", async(req, res, next) => {
+    return res.render("register.html");
+});
+
 /** POST /register - register user: registers, logs in, and returns token.
  *
  * {username, password, first_name, last_name, phone} => {token}.
@@ -42,6 +47,7 @@ router.post("/login", async(req, res, next) => {
 router.post("/register", async(req, res, next) => {
     try {
         const { username, password, first_name, last_name, phone } = req.body;
+        console.log(username, password, first_name, last_name, phone)
         const user = await User.register({username, password, first_name, last_name, phone});
         console.log(user)
         let token = jwt.sign({ username }, SECRET_KEY);

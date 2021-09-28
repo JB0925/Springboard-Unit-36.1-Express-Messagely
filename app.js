@@ -26,7 +26,7 @@ app.use(cors());
 app.use(authenticateJWT);
 
 // use custom css files
-app.use(express.static('./node_modules/font-awesome/css'));
+// app.use(express.static('./node_modules/font-awesome/css'));
 app.use(express.static(process.cwd() + '/public'));
 
 

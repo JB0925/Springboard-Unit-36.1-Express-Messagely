@@ -15,13 +15,19 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <form action="/auth/login" id="loginForm" method="POST">
+    <form id="registerForm">
         <label for="username">Enter Your Username</label>
         <input type="text" name="username" id="username" placeholder="Ex: coolGuy123" required>
         <label for="password">Enter Your Password</label>
         <input type="password" name="password" id="password" placeholder="Ex: @seCretPAswRd8!" required>
+        <label for="first_name">Enter Your First Name</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Ex: Sarah" required>
+        <label for="last_name">Enter Your Last Name</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Ex: Kim" required>
+        <label for="phone">Enter Your Phone Number</label>
+        <input type="text" name="phone" id="phone" placeholder="Ex: 434-235-6789" required>
         <button type="submit">Submit</button>
     </form>
 </div>
-<script src="/js/login.js"></script>
+<script src="/js/register.js"></script>
 {% endblock %}
