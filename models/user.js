@@ -14,6 +14,15 @@ class User {
     return `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}T${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
   }
   
+  /** Returns an array of objects containing the first and last names of all users. */
+  static async getUsers() {
+    const results = await db.query(
+      `SELECT first_name, last_name
+       FROM users`
+    );
+    return results.rows;
+  };
+
   /** register new user -- returns
    *    {username, password, first_name, last_name, phone}
    */

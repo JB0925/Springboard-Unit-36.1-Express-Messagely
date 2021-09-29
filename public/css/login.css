@@ -38,3 +38,89 @@ button {
     height: 35px;
     width: 35%;
 }
+
+#messageForm {
+    align-items: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px;
+    width: 90%;
+}
+
+.box-one,
+.box-two {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+}
+
+.box-two h2 {
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.user-list {
+    text-align: left;
+    height: 0px;
+    transition: height 2s ease-in-out;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-list p {
+    color: #0c162e;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    padding-left: 10px;
+    width: 100%;
+    flex-basis: 50%;
+}
+
+.container-message {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.box-two {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.padding {
+    margin-top: 100px;
+}
+
+@media screen and (max-width: 900px) {
+    .container-message {
+        flex-direction: column-reverse;
+    }
+
+    .box-one,
+    .box-two {
+        width: 100%;
+    }
+
+    .box-two h2 {
+        padding-left: 25px;
+    }
+
+    .user-list p {
+        padding-left: 25px;
+    }
+
+    .box-one {
+        justify-content: flex-start;
+    }
+
+    #messageForm {
+        width: 100%;
+    }
+}

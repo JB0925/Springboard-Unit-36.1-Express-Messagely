@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const ExpressError = require("../expressError");
+const User = require("../models/user");
 const Message = require("../models/message");
 const { ensureLoggedIn, ensureCorrectUser } = require("../middleware/auth");
 const db = require("../db");
@@ -34,6 +35,18 @@ router.get("/:id", async(req, res, next) => {
         return next(error);
     };
 });
+
+/** GET - Render the form to post a new message */
+router.get("/", async(req, res, next) => {
+    try {
+        const users = await User.getUsers();
+        return res.render("newMessage.html", { users })
+    } catch (error) {
+        return next(error);
+    };
+});
+
+
 
 /** POST / - post message.
  *

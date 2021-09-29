@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Messagely - New Message</title>
+{% endblock %}
+{% block content %}
+<div class="container-message">
+    <div class="box-one">
+        <form id="messageForm">
+            <label for="fromUsername">Enter Your Username</label>
+            <input type="text" name="fromUsername" id="fromUsername" placeholder="Ex: coolGuy123" required>
+            <label for="toUsername">Enter the Recipient's Username</label>
+            <input type="text" name="toUsername" id="toUsername" placeholder="Ex: otherCoolGuy456" required>
+            <label for="msgBody">Enter Your Message</label>
+            <input type="text" name="msgBody" id="msgBody" placeholder="Ex: Hello, how are you today?" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div class="box-two">
+        <h2>Click here to see a list of users you can send to.</h2>
+        <div class="user-list">
+            {% for user in users %}
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="padding"></div>
+<script src="/js/newMessage.js"></script>
+{% endblock %}
