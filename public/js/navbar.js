@@ -40,7 +40,6 @@ class NavBar {
             })
             this.toggleMenu = true;
         } else {
-            console.log(this.pullDown.style.height)
             this.pullDown.style.height = '0px';
             pullDownH1s.forEach(p => {
                 p.style.display = 'none';
